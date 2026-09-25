@@ -53,9 +53,19 @@ const stats = [
   },
 ]
 
-
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  const ScrollToSection = (section) => {
+    const element = document.getElementById(section)
+
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start',
+      })
+    }
+  }
 
   const [period, setPeriod] = useState('Last 9 months')
   const [search, setSearch] = useState('')
@@ -80,6 +90,7 @@ function App() {
       <Sidebar
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
+        onNavigate={ScrollToSection}
       />
 
       <div className="lg:pl-64">
@@ -99,7 +110,10 @@ function App() {
         <main className="p-4 sm:p-6 lg:p-8">
 
           {/* Welcome */}
-          <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div  
+              id="overview" 
+              className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"
+              >
             <div>
               <p className="text-sm font-medium text-slate-500">
                 September 2026
@@ -138,7 +152,9 @@ function App() {
           </div>
 
           {/* Chart + Performance */}
-          <div className="mt-6 grid gap-6 xl:grid-cols-[1fr_320px]">
+          <div 
+            id="analytics"
+            className="mt-6 grid gap-6 xl:grid-cols-[1fr_320px]">
 
             {/* Revenue Chart */}
             <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
@@ -311,8 +327,10 @@ function App() {
 
           {/* Recent Orders */}
           <div 
+             id="orders"
              ref={ordersRef}
-             className="mt-6 rounded-2xl border border-slate-200 bg-white shadow-sm">
+             className="mt-6 rounded-2xl border border-slate-200 bg-white shadow-sm"
+             >
 
             <div className="flex items-center justify-between border-b border-slate-200 px-5 py-5 sm:px-6">
               <div>
@@ -391,6 +409,40 @@ function App() {
               </table>
             </div>
           </div>
+
+<section
+  id="customers"
+  className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+>
+  <p className="text-sm font-medium text-slate-500">
+    Customers
+  </p>
+
+  <h3 className="mt-1 text-xl font-bold text-slate-900">
+    Customer insights
+  </h3>
+
+  <p className="mt-2 text-sm text-slate-500">
+    Customer activity and growth insights will appear here.
+  </p>
+</section>
+
+<section
+  id="settings"
+  className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+>
+  <p className="text-sm font-medium text-slate-500">
+    Settings
+  </p>
+
+  <h3 className="mt-1 text-xl font-bold text-slate-900">
+    Dashboard settings
+  </h3>
+
+  <p className="mt-2 text-sm text-slate-500">
+    Manage dashboard preferences and configuration.
+  </p>
+</section>
 
         </main>
       </div>
